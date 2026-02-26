@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:daraz_style_product_listing/constant/app_api_url.dart';
 import 'package:daraz_style_product_listing/routes/app_routes.dart';
-import 'package:daraz_style_product_listing/routes/app_routes_key.dart';
-import 'package:daraz_style_product_listing/services/api/non_auth_api.dart';
+// import 'package:daraz_style_product_listing/routes/app_routes_key.dart';
+// import 'package:daraz_style_product_listing/services/api/non_auth_api.dart';
 import 'package:daraz_style_product_listing/services/storage/storage_services.dart';
 import 'package:daraz_style_product_listing/utils/app_log.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
@@ -47,28 +47,28 @@ Error message: ${error.message}
 
 """);
 
-          try {
-            if (error.response?.statusCode == 401) {
-              String token = await storageServices.getRefreshToken();
-              if (token.isEmpty) {
-                await storageServices.logout();
-                appRoutes.pushReplacement(AppRoutesKey.instance.initial);
-                return handler.next(error);
-              }
-              final newAccessToken = await reFreshNewAccessToken(token);
-              if (newAccessToken.isNotEmpty) {
-                _dio.options.headers["Authorization"] = "Bearer $newAccessToken";
-                return handler.resolve(await _dio.fetch(error.requestOptions));
-              } else {
-                await storageServices.logout();
-                appRoutes.pushReplacement(AppRoutesKey.instance.initial);
-                return handler.next(error);
-              }
-            }
-          } catch (e) {
-            errorLog("error form api try and catch bloc", e);
-            return handler.next(error);
-          }
+          // try {
+          // if (error.response?.statusCode == 401) {
+          //   String token = await storageServices.getRefreshToken();
+          //   if (token.isEmpty) {
+          //     await storageServices.logout();
+          //     appRoutes.pushReplacement(AppRoutesKey.instance.initial);
+          //     return handler.next(error);
+          //   }
+          //   final newAccessToken = await reFreshNewAccessToken(token);
+          //   if (newAccessToken.isNotEmpty) {
+          //     _dio.options.headers["Authorization"] = "Bearer $newAccessToken";
+          //     return handler.resolve(await _dio.fetch(error.requestOptions));
+          //   } else {
+          //     await storageServices.logout();
+          //     appRoutes.pushReplacement(AppRoutesKey.instance.initial);
+          //     return handler.next(error);
+          //   }
+          // }
+          // } catch (e) {
+          //   errorLog("error form api try and catch bloc", e);
+          //   return handler.next(error);
+          // }
 
           return handler.next(error); // Continue with error
         },
@@ -80,22 +80,22 @@ Error message: ${error.message}
 }
 
 // Token refresh logic
-Future<String> reFreshNewAccessToken(String refreshToken) async {
-  try {
-    final response = await NonAuthApi().sendRequest.post(AppApiUrl.instance.refreshToken, data: {"token": refreshToken});
-    if (response.statusCode == 200) {
-      if (response.data["data"] != null && response.data["data"] is Map) {
-        var data = response.data["data"];
-        if (data["accessToken"] != null && data["accessToken"] is String) {
-          await StorageServices.instance.setToken(data["accessToken"]);
-          return data["accessToken"].toString();
-        }
-      }
-    } else {
-      await StorageServices.instance.logout();
-    }
-  } catch (e) {
-    errorLog("reFreshNewAccessToken", e);
-  }
-  return "";
-}
+// Future<String> reFreshNewAccessToken(String refreshToken) async {
+//   try {
+//     final response = await NonAuthApi().sendRequest.post(AppApiUrl.instance.refreshToken, data: {"token": refreshToken});
+//     if (response.statusCode == 200) {
+//       if (response.data["data"] != null && response.data["data"] is Map) {
+//         var data = response.data["data"];
+//         if (data["accessToken"] != null && data["accessToken"] is String) {
+//           await StorageServices.instance.setToken(data["accessToken"]);
+//           return data["accessToken"].toString();
+//         }
+//       }
+//     } else {
+//       await StorageServices.instance.logout();
+//     }
+//   } catch (e) {
+//     errorLog("reFreshNewAccessToken", e);
+//   }
+//   return "";
+// }
