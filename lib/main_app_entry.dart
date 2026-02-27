@@ -1,3 +1,4 @@
+import 'package:daraz_style_product_listing/app_material_scroll_behavior.dart';
 import 'package:daraz_style_product_listing/screens/base_screen/error_screen/error_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,7 +59,7 @@ class _MainAppState extends ConsumerState<MainApp> {
       theme: AppThemeConfiguration.instance.lightThemeData,
       darkTheme: AppThemeConfiguration.instance.darkThemeData,
       themeMode: themeMode,
-
+      scrollBehavior: AppCustomScrollBehavior(),
       builder: (context, child) {
         ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
           return Overlay(
