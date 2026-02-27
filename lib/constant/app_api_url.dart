@@ -8,7 +8,7 @@ class AppApiUrl {
   //////////////  app base api end point
   static final String domain = _getDomain();
   static final String socket = _getDomain();
-  final String baseUrl = "$domain/api/v1";
+  final String baseUrl = domain;
 
   //////////////////////////////////  base
   String refreshToken = "/refreshToken";
@@ -28,16 +28,16 @@ class AppApiUrl {
   String authForgotPassword = "/authForgotPassword";
   String authVerifyEmail = "/authVerifyEmail";
   String authResetPassword = "/authResetPassword";
+  String products = "/products";
 }
 
 String _getDomain() {
-  const String liveServer = "http://54.176.228.142:6005";
-  const String localServer = "http://10.10.7.8:6008";
+  const String liveServer = "https://fakestoreapi.com";
+  const String localServer = "https://fakestoreapi.com";
 
   try {
     if (kDebugMode) {
-      localServer;
-      // return localServer;
+      return localServer;
     }
   } catch (e) {
     errorLog("_getDomain", e);

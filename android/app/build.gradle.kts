@@ -17,7 +17,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     namespace = "com.example.flutter_riverpod_templete"
     compileSdk = 36
-    ndkVersion = "29.0.14033849"
+    ndkVersion = flutter.ndkVersion
     buildToolsVersion = "36.0.0"
 
     compileOptions {

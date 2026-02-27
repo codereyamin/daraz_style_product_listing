@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:daraz_style_product_listing/constant/app_api_url.dart';
@@ -320,8 +321,9 @@ class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> with Auto
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
     return CachedNetworkImage(
-      cacheManager: CustomCacheManager.instance,
+      cacheManager: kIsWeb ? null : CustomCacheManager.instance,
       imageUrl: optimizedImageUrl(_image),
       width: widget.width,
       height: widget.height,

@@ -13,7 +13,7 @@ class AppText extends ConsumerStatefulWidget {
     this.fontSize = 16,
     this.textScaleFactor = 0.9,
     this.color,
-    this.fontWeight = FontWeight.w400,
+    this.fontWeight = FontWeight.w500,
     this.maxLines,
     this.overflow,
     this.textAlign,
@@ -68,7 +68,7 @@ class _AppTextState extends ConsumerState<AppText> {
     var style = Theme.of(context).textTheme.displaySmall?.copyWith(
       height: widget.height,
       fontSize: widget.fontSize,
-      color: widget.color ?? AppColors.instance.black500,
+      color: widget.color ?? AppColors.instance.white50,
       fontWeight: widget.fontWeight,
       fontFamily: AppConstant.instance.font,
       decoration: widget.decoration,

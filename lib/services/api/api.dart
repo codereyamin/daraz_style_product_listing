@@ -17,7 +17,7 @@ class AppApi {
   final appRoutes = AppRoutes.instance;
   AppApi() {
     _dio.options.baseUrl = AppApiUrl.instance.baseUrl;
-    _dio.options.sendTimeout = const Duration(seconds: 120);
+    _dio.options.sendTimeout = kIsWeb ? null : const Duration(seconds: 120);
     _dio.options.connectTimeout = const Duration(seconds: 120);
     _dio.options.receiveTimeout = const Duration(seconds: 120);
     _dio.options.followRedirects = false;
