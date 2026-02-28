@@ -16,7 +16,7 @@ class HomeScreenWidgetsHorizontalCards extends StatelessWidget {
         if (provider.isLoading) {
           return SizedBox(
             width: AppSize.size.width,
-            height: AppSize.size.width * 0.1,
+            height: AppSize.size.width * 0.25,
             child: Skeletonizer(
               enabled: true,
               child: ListView.builder(
@@ -34,14 +34,14 @@ class HomeScreenWidgetsHorizontalCards extends StatelessWidget {
         if (provider.listOfProduct.isNotEmpty) {
           return SizedBox(
             width: AppSize.size.width,
-            height: AppSize.size.width * 0.1,
+            height: AppSize.size.width * 0.25,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 var item = provider.listOfProduct[index];
                 return Padding(
                   padding: EdgeInsets.only(right: AppSize.size.width * 0.01),
-                  child: AppImage(url: item.image, width: AppSize.size.width * 0.1, height: AppSize.size.width * 0.1),
+                  child: AppImage(url: item.image, width: AppSize.size.width * 0.25, height: AppSize.size.width * 0.25),
                 );
               },
             ),

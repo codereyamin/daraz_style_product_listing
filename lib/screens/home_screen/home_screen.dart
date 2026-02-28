@@ -52,54 +52,64 @@ class _HomeScreenState extends ConsumerState<HomeScreen> with TickerProviderStat
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          await ref.read(homeScreenProvider.notifier).onDataRefresh();
-        },
-        child: NestedScrollView(
-          physics: AlwaysScrollableScrollPhysics(),
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverPadding(
-                padding: EdgeInsetsGeometry.all(AppSize.size.width * 0.01),
-                sliver: SliverToBoxAdapter(child: HomeScreenWidgetsHorizontalCards()),
-              ),
-
-              SliverPadding(
-                padding: EdgeInsetsGeometry.all(AppSize.size.width * 0.01),
-                sliver: SliverToBoxAdapter(child: HomeScreenWidgetsHorizontalCards()),
-              ),
-
-              SliverAppBar(
-                expandedHeight: AppSize.size.width * 0.35,
-                flexibleSpace: AppImage(
-                  height: AppSize.size.width * 0.35,
-                  width: AppSize.size.width,
-                  url: "https://images.unsplash.com/photo-1761839257475-4ca368dae6c3?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await ref.read(homeScreenProvider.notifier).onDataRefresh();
+          },
+          child: NestedScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverPadding(
+                  padding: EdgeInsetsGeometry.all(AppSize.size.width * 0.01),
+                  sliver: SliverToBoxAdapter(child: HomeScreenWidgetsHorizontalCards()),
                 ),
-              ),
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: _TabBarDelegate(
-                  TabBar(
-                    controller: _tabController,
-                    dividerHeight: 0,
-                    indicatorColor: Colors.transparent,
-                    unselectedLabelStyle: TextStyle(color: AppColors.instance.black50, fontFamily: AppConstant.instance.font, fontWeight: FontWeight.w500),
-                    labelStyle: TextStyle(color: AppColors.instance.dark500, fontFamily: AppConstant.instance.font, fontWeight: FontWeight.w500),
-                    tabs: const [
-                      Tab(text: "All"),
-                      Tab(text: "Grid view"),
-                      Tab(text: "Tab 3"),
-                      Tab(text: "Tab 4"),
-                      Tab(text: "Tab 5"),
-                    ],
+
+                SliverPadding(
+                  padding: EdgeInsetsGeometry.all(AppSize.size.width * 0.01),
+                  sliver: SliverToBoxAdapter(child: HomeScreenWidgetsHorizontalCards()),
+                ),
+
+                SliverAppBar(
+                  expandedHeight: AppSize.size.width * 0.35,
+                  flexibleSpace: AppImage(
+                    height: AppSize.size.width * 0.35,
+                    width: AppSize.size.width,
+                    url:
+                        "https://images.unsplash.com/photo-1761839257475-4ca368dae6c3?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                   ),
                 ),
-              ),
-            ];
-          },
-          body: TabBarView(controller: _tabController, children: [HomeScreenAllScreen(), HomeScreenGridView(), HomeScreenBodyWidget(), HomeScreenBodyWidget(), HomeScreenBodyWidget()]),
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: _TabBarDelegate(
+                    TabBar(
+                      controller: _tabController,
+                      dividerHeight: 0,
+                      indicatorColor: Colors.transparent,
+                      unselectedLabelStyle: TextStyle(
+                        color: AppColors.instance.black50,
+                        fontFamily: AppConstant.instance.font,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      labelStyle: TextStyle(color: AppColors.instance.dark500, fontFamily: AppConstant.instance.font, fontWeight: FontWeight.w500),
+                      tabs: const [
+                        Tab(text: "All"),
+                        Tab(text: "Grid view"),
+                        Tab(text: "Tab 3"),
+                        Tab(text: "Tab 4"),
+                        Tab(text: "Tab 5"),
+                      ],
+                    ),
+                  ),
+                ),
+              ];
+            },
+            body: TabBarView(
+              controller: _tabController,
+              children: [HomeScreenAllScreen(), HomeScreenGridView(), HomeScreenBodyWidget(), HomeScreenBodyWidget(), HomeScreenBodyWidget()],
+            ),
+          ),
         ),
       ),
     );
